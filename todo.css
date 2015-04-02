@@ -1,0 +1,103 @@
+body{
+
+	background-color: #ddd;
+	font-size: 150%;
+}
+
+.done-true{
+	text-decoration: line-through;
+	color: gray;
+}
+
+input[type=checkbox] {
+	width:20px; 
+	height:20px;
+	vertical-align:top; 
+}
+
+.btn1{
+	width: 25px;
+	height: 25px;
+	background-color: #fefabc;
+	border: 1px solid;
+	vertical-align: middle;
+}
+
+.btn2{
+	width: 25px;
+	height: 25px;
+	background-color: #FDD7DB;
+	border: 1px solid;
+	vertical-align: middle;
+}
+
+.btn3{
+	width: 25px;
+	height: 25px;
+	background-color: #EAF763;
+	border: 1px solid;
+	vertical-align: middle;
+}
+
+.todoList{
+	margin-top: 20px;
+	
+}
+
+#collaborators {
+  float: right;
+  margin-right: 25px;
+}
+
+#collaborators > img {
+  margin-right: 5px;
+  height: 30px;
+  padding-bottom: 5px;
+  width: 30px;
+  margin-top: -3px;
+  border-radius: 3px;
+}
+
+.item {
+	position:relative;
+	width:220px;
+	height:20px;
+	margin:0px;
+	/*display:none;*/
+}
+
+.handle {
+	position:absolute;
+	top:-10px;
+	left:-20px;
+	width:260px;
+	height:80px;
+	/*background:#ccc;*/
+
+	z-index:-9999;
+	display: inline-block;
+	background: #fefabc;
+	-webkit-box-shadow: 0 8px 10px -7px #999;
+	-moz-box-shadow: 0 8px 10px -7px #999;
+	box-shadow: 0 8px 10px -7px #999;
+	-webkit-border-bottom-right-radius: 60px 10px;
+	-moz-border-radius-bottomright: 60px 10px;
+	border-bottom-right-radius: 60px 10px;
+}
+
+.handle .sricker .sticker-shadow {
+opacity: 0.6;
+}
+
+
+.item .content {
+	z-index:999;
+}
+
+
+.handle:hover {
+  /*background: #09F;*/
+  cursor:move;
+}
+
+
