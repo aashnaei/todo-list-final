@@ -58,14 +58,14 @@
       </div>
 
         <div  class="todoList"  id="hammer">
-            <div ng-repeat="todo in getTodos() track by $index" class="item">
-                <div class="handle" ng-style="todo.style"></div>
+            <div ng-repeat="(key, todo) in getTodos() track by $index" class="item">
+                <div class="handle" ng-style="{'background-color': todo.color || '#fefabc'}"></div>
                 <label hm-tap="tap()" class="content">
-                    <input id="$index" type="checkbox" ng-model="todo.done" ng-click="todo.done">
+                    <input id="$index" type="checkbox" ng-checked="todo.done" ng-click="todoChecked(key)">
                     <span ng-swipe-left="swiped($index)" class="done-{{todo.done}}">{{todo.text}}</span>
-                    <button id="colorChange" class="btn1" ng-click="todo.style={background:'#fefabc'}"></button>
-                    <button id="colorChange" class="btn2" ng-click="todo.style={background:'#FDD7DB'}"></button>
-                    <button id="colorChange" class="btn3" ng-click="todo.style={background:'#EAF763'}"></button>
+                    <button id="colorChange" class="btn1" ng-click="setColor(key, '#fefabc')"></button>
+                    <button id="colorChange" class="btn2" ng-click="setColor(key, '#FDD7DB')"></button>
+                    <button id="colorChange" class="btn3" ng-click="setColor(key, '#EAF763')"></button>
                 </label>
 
                 <!-- <ion-list show-delete="false" can-swipe="true">
@@ -117,6 +117,19 @@
       model.getRoot().set('list', string);
     }
 
+    // function displayAllCollaborators(document) {
+    //     var collaborators = document.getCollaborators();
+    //     var collaboratorCount = collaborators.length;
+    //     console.log(collaboratorCount + ' collaborators:');
+    //     for (var i = 0; i < collaboratorCount; i++) {
+    //       var user = collaborators[collaboratorCount];
+    //       console.log('Name: ' + user.displayName);
+    //       console.log('Is me:' + user.isMe);
+
+    //       }
+    //   }
+
+
     /**
      * This function is called when the Realtime file has been loaded. It should
      * be used to initialize any user interface components and event handlers
@@ -127,15 +140,6 @@
     function onFileLoaded(doc) {
       console.log('Got the data');
       window.list = doc.getModel().getRoot().get('list');
-      // list.insert(list.length, {
-      //   foo: 'bar'
-      // });
-      
-      // gapi.drive.realtime.Model.prototype.createList();
-
-      // console.log(list.get(0));
-      list.remove(0, 10);
-      console.log(list.length);
 
       var onValueAdded = function(event) {
          console.log("Items added", event.values);
@@ -158,17 +162,7 @@
       // document.addEventListener(gapi.drive.realtime.EventType.COLLABORATOR_JOINED, displayCollaboratorEvent);
       
 
-      function displayAllCollaborators(document) {
-        var collaborators = document.getCollaborators();
-        var collaboratorCount = collaborators.length;
-        console.log(collaboratorCount + ' collaborators:');
-        for (var i = 0; i < collaboratorCount; i++) {
-          var user = collaborators[collaboratorCount];
-          console.log('Name: ' + user.displayName);
-          console.log('Is me:' + user.isMe);
-
-          }
-      }
+      
 
       // function displayObjectChangedEvent(evt) {
       //     var events = evt.events;

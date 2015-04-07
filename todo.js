@@ -6,13 +6,19 @@ myapp.controller('TodoCtrl', function ($scope) {
 	$scope.totalTodos = 4;
 
 	$scope.todos = [
-	{text:'Learn Angular', done:false, style:''}, 
-	{text:'Build an app', done:false, style:''}
+		new TodoElement({text:'Learn Angular', done:false, style:''}), 
+		new TodoElement({text:'Build an app', done:false, style:''})
 	];
 
 	setInterval(function () {
 		$scope.$apply();
 	}, 1000);
+
+	function TodoElement(options) {
+		this.text = options.text;
+		this.color = options.color;
+		this.done = options.done;
+	}
 
 	$scope.getTodos = function () {
 		if (!window.list) {
@@ -26,19 +32,54 @@ myapp.controller('TodoCtrl', function ($scope) {
 		return arr;
 	};
 
+	$scope.todoChecked = function (i) {
+		if (!window.list) { console.error('list does not exist'); return; }
+		var todo = new TodoElement(window.list.get(i));
+		todo.done = !todo.done;
+		window.list.set(i, todo);
+	};
+
+	$scope.setColor = function (i, color) {
+		if (!window.list) { console.error('List does not exist'); return; }
+		var todo = new TodoElement(window.list.get(i));
+		todo.color = color;
+		window.list.set(i, todo);
+	};
+
 	$scope.getTotalTodos = function() {
-		console.log(window.list && window.list.length);
 		return window.list ? window.list.length : 0;
 	};
 
 	$scope.clearCompleted = function() {
-		$scope.todos = _.filter($scope.todos, function(todo){
-			return !todo.done;
-		})
-	};
+		// window.list = _.filter(window.list, function(todo){
+		// 	return !todo.done;
+		// })
+
+		// Keep looping until there isn't any "done" todo left.
+		//
+		// 1. loop through the list, add to separate array: new TodoElement(window.list.get(i))
+		// 2. set that array to _.filter(thatArray, function (todo) { return !todo.done })
+		// 3. call window.list.clear()
+		// 4. loop through that other array, and add them to the list
+		//    - by doing: list.insert(0, thatArray[i])
+
+		
+
+	 	  var something = [];
+	 	  for (var i = 0; i < 10; i++){
+	 	  something[i] = new TodoElement(window.list.get(i));
+	 	  something[i] = _.filter(something, function (todo) { return !todo.done });
+	 	  window.list.clear();
+	 	}
+	 	
+	 	  
+	 	  for (var i = 0; i < 10; i++){
+	 	  list.insert(0, something);
+	 	  console.log("jeje");
+	 	}
+ };
 
 	$scope.swiped = function(which) {
-		console.log($scope.todos[which]);
 	};
 
 
@@ -53,11 +94,15 @@ myapp.controller('TodoCtrl', function ($scope) {
 		      handle: '.handle'
 		    });
 
+		    
+
+
 		    //draggie will fire an event when dragging has ended, dragend
 
 		    //you need to update the todo that was dragged, top and left properties
 		  }
 	};
+
 
 
 	$scope.addTodo = function (){
@@ -88,12 +133,14 @@ myapp.controller('TodoCtrl', function ($scope) {
 		
 		// }
 
-		setTimeout(addDrag, 100);
+		addDrag();
 
 	};
 
 
-	setTimeout(addDrag, 500);
+
+
+	// setTimeout(addDrag, 500);
 })
 
 // var elements = document.getElementById('dragMe');
@@ -110,4 +157,18 @@ myapp.controller('TodoCtrl', function ($scope) {
 // 		alert('drag');
 //  	});
 
+window.onload = function() {
+
+  var items = document.querySelectorAll('.item');
+  
+  for ( var i=0, len = items.length; i < len; i++ ) {
+    var item = items[i];
+    var draggie = new Draggabilly( item, {
+      handle: '.handle',
+      //containment: '.todoList'
+    });
+  }
+
+
+}
 
