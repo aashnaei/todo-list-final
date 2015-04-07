@@ -12,7 +12,7 @@ myapp.controller('TodoCtrl', function ($scope) {
 
 	setInterval(function () {
 		$scope.$apply();
-	}, 1000);
+	}, 500);
 
 	function TodoElement(options) {
 		this.text = options.text;
@@ -44,6 +44,8 @@ myapp.controller('TodoCtrl', function ($scope) {
 		var todo = new TodoElement(window.list.get(i));
 		todo.color = color;
 		window.list.set(i, todo);
+
+		// $scope.showActions = !$scope.showActions;
 	};
 
 	$scope.getTotalTodos = function() {
@@ -63,25 +65,36 @@ myapp.controller('TodoCtrl', function ($scope) {
 		// 4. loop through that other array, and add them to the list
 		//    - by doing: list.insert(0, thatArray[i])
 
-		
-
 	 	  var something = [];
 	 	  for (var i = 0; i < 10; i++){
 	 	  something[i] = new TodoElement(window.list.get(i));
 	 	  something[i] = _.filter(something, function (todo) { return !todo.done });
-	 	  window.list.clear();
-	 	}
-	 	
 	 	  
-	 	  for (var i = 0; i < 10; i++){
-	 	  list.insert(0, something);
-	 	  console.log("jeje");
 	 	}
- };
+
+	 	window.list.clear()
+
+	 	
+	 	  for (var i = 0; i < 10; i++){
+
+		 	  list.insert(0, something);
+		 	  console.log("jeje");
+		 	}
+
+ 	};
 
 	$scope.swiped = function(which) {
 	};
 
+	//swipe option
+	$scope.showActions = false;
+
+	$scope.showOption = function () {
+	   $scope.showActions = !$scope.showActions;
+	   console.log("you swiped")
+	};
+
+	
 
 	var addDrag = function() {
 		var elements = document.querySelectorAll('.item');
@@ -93,9 +106,6 @@ myapp.controller('TodoCtrl', function ($scope) {
 		    var draggie = new Draggabilly( el, {
 		      handle: '.handle'
 		    });
-
-		    
-
 
 		    //draggie will fire an event when dragging has ended, dragend
 
@@ -137,11 +147,49 @@ myapp.controller('TodoCtrl', function ($scope) {
 
 	};
 
+angular.module('drag', []).
+directive('draggable', function($document) {
+  return function(scope, element, attr) {
+    var startX = 0, startY = 0, x = 0, y = 0;
+    element.css({
+     position: 'relative',
+     border: '1px solid red',
+     backgroundColor: 'lightgrey',
+     cursor: 'pointer',
+     display: 'block',
+     width: '65px'
+    });
+    element.on('mousedown', function(event) {
+      // Prevent default dragging of selected content
+      event.preventDefault();
+      startX = event.screenX - x;
+      startY = event.screenY - y;
+      $document.on('mousemove', mousemove);
+      $document.on('mouseup', mouseup);
+    });
 
+    function mousemove(event) {
+      y = event.screenY - startY;
+      x = event.screenX - startX;
+      element.css({
+        top: y + 'px',
+        left:  x + 'px'
+      });
+    }
+
+    function mouseup() {
+      $document.off('mousemove', mousemove);
+      $document.off('mouseup', mouseup);
+    }
+  };
+});
 
 
 	// setTimeout(addDrag, 500);
-})
+});
+
+
+
 
 // var elements = document.getElementById('dragMe');
 // 	Hammer(elements).on('drag', function(event) {
@@ -157,18 +205,25 @@ myapp.controller('TodoCtrl', function ($scope) {
 // 		alert('drag');
 //  	});
 
-window.onload = function() {
 
-  var items = document.querySelectorAll('.item');
+
+// window.onload = function() {
+
+//   var items = document.querySelectorAll('.item');
   
-  for ( var i=0, len = items.length; i < len; i++ ) {
-    var item = items[i];
-    var draggie = new Draggabilly( item, {
-      handle: '.handle',
-      //containment: '.todoList'
-    });
-  }
+//   for ( var i=0, len = items.length; i < len; i++ ) {
+//     var item = items[i];
+//     var draggie = new Draggabilly( item, {
+//       handle: '.handle',
+//       //containment: '.todoList'
+//     });
+//   }
+
+// };
 
 
-}
+
+
+
+
 

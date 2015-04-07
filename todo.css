@@ -58,6 +58,14 @@ input[type=checkbox] {
   border-radius: 3px;
 }
 
+/*#colorChange {
+	display: none;
+}*/
+
+#authorizeButton {
+	margin-top: 10px;
+}
+
 .item {
 	position:relative;
 	width:220px;

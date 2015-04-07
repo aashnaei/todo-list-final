@@ -14,8 +14,11 @@
 
     <link rel="stylesheet" href="todo.css">
 
+    <!-- // <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular.min.js"></script> -->
+
     <script src='bower_components/angular/angular.min.js'></script>
     <script src='//code.angularjs.org/1.3.14/angular-touch.js'></script>
+
     
     <script src='draggabilly.pkgd.min.js'></script>
     <script src='angular-drag-and-drop-lists.js'></script>
@@ -57,15 +60,26 @@
         <div id="collaborators">
       </div>
 
-        <div  class="todoList"  id="hammer">
-            <div ng-repeat="(key, todo) in getTodos() track by $index" class="item">
+        <div  class="todoList"  id="hammer" ng-app="drag">
+            <div ng-repeat="(key, todo) in getTodos() track by $index" class="item" draggable>
                 <div class="handle" ng-style="{'background-color': todo.color || '#fefabc'}"></div>
                 <label hm-tap="tap()" class="content">
                     <input id="$index" type="checkbox" ng-checked="todo.done" ng-click="todoChecked(key)">
-                    <span ng-swipe-left="swiped($index)" class="done-{{todo.done}}">{{todo.text}}</span>
-                    <button id="colorChange" class="btn1" ng-click="setColor(key, '#fefabc')"></button>
-                    <button id="colorChange" class="btn2" ng-click="setColor(key, '#FDD7DB')"></button>
-                    <button id="colorChange" class="btn3" ng-click="setColor(key, '#EAF763')"></button>
+                    <span class="done-{{todo.done}}"  ng-swipe-left="showActions = true" ng-swipe-right="showActions = false">{{todo.text}}</span>
+
+                    <span  ng-show="showActions" ng-swipe-right="showActions = false">
+                    <button id="colorChange" class="btn1" ng-click="setColor(key, '#fefabc'); showActions = !showActions"></button>
+                    <button id="colorChange" class="btn2" ng-click="setColor(key, '#FDD7DB'); showActions = !showActions"></button>
+                    <button id="colorChange" class="btn3" ng-click="setColor(key, '#EAF763'); showActions = !showActions"></button>
+                    </span>
+
+                    <!-- <button id="show">Color Options</button> -->
+
+                   <!-- <script>
+                     $( "button" ).click(function() {
+                       $( "p" ).toggle();
+                     });
+                     </script> -->
                 </label>
 
                 <!-- <ion-list show-delete="false" can-swipe="true">
