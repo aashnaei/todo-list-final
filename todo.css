@@ -15,6 +15,13 @@ input[type=checkbox] {
 	vertical-align:top; 
 }
 
+.ng-enter {
+	-webkit-animation: bounceIn 1s;
+	-moz-animation: bounceIn 1s;
+	-o-animation: bounceIn 1s;
+	animation: bounceIn 1s;
+}
+
 .btn1{
 	width: 25px;
 	height: 25px;
@@ -74,10 +81,14 @@ input[type=checkbox] {
 	/*display:none;*/
 }
 
+.inputText {
+	width: 250px;
+}
+
 .handle {
 	position:absolute;
 	top:-10px;
-	left:-20px;
+	/*left:-20px;*/
 	width:260px;
 	height:80px;
 	/*background:#ccc;*/
@@ -100,6 +111,7 @@ opacity: 0.6;
 
 .item .content {
 	z-index:999;
+	padding-left: 20px;
 }
 
 

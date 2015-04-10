@@ -1,6 +1,6 @@
 
 
-var myapp = angular.module('myapp', ['ngTouch']);
+var myapp = angular.module('myapp', ['ngTouch', 'ngAnimate']);
 
 myapp.controller('TodoCtrl', function ($scope) {
 	$scope.totalTodos = 4;
@@ -132,6 +132,7 @@ myapp.controller('TodoCtrl', function ($scope) {
 			// top:Math.floor(Math.random() * 400) + 'px',
 			// left:Math.floor(Math.random() * 400) + 'px',
 			// style:''
+			//$scope.animated = 'animated bounceOutLeft';
 		})
 		$scope.formTodoText = '';
 
