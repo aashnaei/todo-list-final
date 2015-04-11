@@ -65,21 +65,19 @@ myapp.controller('TodoCtrl', function ($scope) {
 		// 4. loop through that other array, and add them to the list
 		//    - by doing: list.insert(0, thatArray[i])
 
-	 	  var something = [];
-	 	  for (var i = 0; i < 10; i++){
-	 	  something[i] = new TodoElement(window.list.get(i));
-	 	  something[i] = _.filter(something, function (todo) { return !todo.done });
-	 	  
+	 	var something = [];
+		for (var i = 0; i < window.list.length; i++) {
+			var element = list.get(i);
+			if (element && !element.done) {
+		 		something.push( new TodoElement(window.list.get(i)) );
+			}
 	 	}
-
+	 	
 	 	window.list.clear()
 
-	 	
-	 	  for (var i = 0; i < 10; i++){
-
-		 	  list.insert(0, something);
-		 	  console.log("jeje");
-		 	}
+	 	for (var i = 0; i < something.length; i++){
+		 	list.insert(0, something[i]);
+		}
 
  	};
 
